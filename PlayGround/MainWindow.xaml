@@ -1,0 +1,83 @@
+﻿<Window x:Class="DemoWpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoWpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Activated="Window_Activated">
+    <Window.Resources>
+        <Style x:Key="btStyle1" TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+
+            <Style.Triggers>
+                <Trigger Property="Content" Value="blue">
+                    <Setter Property="Foreground" Value="Blue"/>
+                </Trigger>
+                <Trigger  Property="Content" Value="Red">
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="listBoxControlStyle1" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Yellow"/>
+        </Style>
+        <Style x:Key="listBoxControlRemoveStyle1" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <DataTemplate x:Key="personTemplate">
+            <Border BorderBrush="Azure" BorderThickness="1" CornerRadius="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" FontSize="15" Foreground="Blue">
+                        <Label.Content>
+
+                            <Binding Path="Name"/>
+                        </Label.Content>
+                    </Label>
+                    <Label Grid.Column="1" FontSize="15" Foreground="Blue" Margin="40 0 0 0" Content="{Binding Path=Age}"></Label>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+    </Window.Resources>
+    <Grid x:Name="gridDef">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="lbData" ItemsSource="{Binding}" ItemTemplate="{StaticResource personTemplate}" Grid.Row="0"/>
+        <StackPanel Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="20 0 0 0">Person's name:</TextBlock>
+                <TextBox x:Name="tbName" Grid.Column="1" FontSize="15"></TextBox>
+                <TextBlock Grid.Column="2" Margin="20 0 0 0">Person's age:</TextBlock>
+                <TextBox x:Name="tbAge" Grid.Column="3" FontSize="15"></TextBox>
+                <Button x:Name="btAdd" Grid.Column="4" Content="Add"/>
+            </Grid>
+            <Grid Margin="0 20 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="20 0 0 0">Filter: If Age between </TextBlock>
+                <TextBox x:Name="tbMinAge" Grid.Column="1" FontSize="15"></TextBox>
+                <TextBlock Grid.Column="2" Margin="20 0 0 0"> and </TextBlock>
+                <TextBox x:Name="tbMaxAge" Grid.Column="3" FontSize="15"></TextBox>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,87 @@
+﻿<fw:AcrylicWindow x:Class="FileBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileBrowser"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        Title="File Browser" Height="450" Width="800" Activated="Window_Activated"
+        fw:AcrylicWindow.ShowTitleBar="True">
+
+
+    <Grid fw:PointerTracker.Enabled="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <TreeView x:Name="treeDirectory" Grid.Column="0" SelectedItemChanged="treeDirectory_SelectedItemChanged" Background="#700097e6">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:FolderNode}">
+                    <HierarchicalDataTemplate.ItemsSource>
+
+                        <Binding Path="ChildFolders"/>
+
+                    </HierarchicalDataTemplate.ItemsSource>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IconName}"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" FontFamily="Roboto" Text="{Binding Path=FolderName}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:FileNode}">
+                    <TextBlock Foreground="Red" FontSize="15" Text="{Binding Path=FileName}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Auto" Background="#7FFFFFFF"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="15" Grid.Column="0" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">Root Directory:</TextBlock>
+
+                <TextBox Grid.Column="1" Width="500" x:Name="tbRoot" Margin="10 0 0 0" KeyDown="tbRoot_KeyDown" FontSize="15" FontFamily="Roboto" FontWeight="Bold" TextChanged="tbRoot_TextChanged_1" Style="{StaticResource TextBoxRevealStyle}" />
+                <Button Grid.Column="2" Content="Cut" Margin="10 0 0 0" Style="{StaticResource ButtonRevealStyle}"/>
+                <Button Grid.Column="3" Content="Copy" Margin="10 0 0 0" Style="{StaticResource ButtonRevealStyle}"/>
+                <Button Grid.Column="4" Content="Paste" Margin="10 0 0 0" Style="{StaticResource ButtonRevealStyle}"/>
+                <Button Grid.Column="5" Content="Delete" Margin="10 0 0 0" Style="{StaticResource ButtonRevealStyle}"/>
+                
+            </Grid>
+            <TabControl Grid.Row="1" Background="#1FFFFFFF" >
+                <TabItem Background="#1FFFFFFF">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Info.png"/>
+                            <TextBlock>Properties</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem Background="#1FFFFFFF">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Preview.png"/>
+                            <TextBlock>Preview</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+
+        </Grid>
+
+    </Grid>
+</fw:AcrylicWindow>
